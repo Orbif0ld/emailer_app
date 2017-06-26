@@ -34,7 +34,12 @@ class EmailApp < Sinatra::Base
         @email.to_address = params[:to_address]
         @email.subject = params[:subject]
         @email.message = params[:message_text]
-        @email.from_address = '0b1100101011@gmail.com'
+        ##################################################################
+        ## replace with your email
+        @email.from_address = 'someone@domain.com'
+        
+        ##################################################################
+        
         begin
             @email.finalize
         rescue NotWellFormedEmailAddressException
@@ -47,7 +52,12 @@ class EmailApp < Sinatra::Base
         end
         
         begin
-            @email.send 'smtp.gmail.com', 587, 'fat_man_'
+        ##################################################################
+        ## replace smtp.gmail.com with the appropriate server and password
+        ## with the correct password and 587 with the correct port
+            @email.send 'smtp.gmail.com', 587, 'password'
+        
+        ##################################################################
         rescue NotWellFormedSenderError
             flash[:error_msg] = "App can't connect to it's mailer. Sorry!"
             redirect '/'
